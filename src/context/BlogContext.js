@@ -1,25 +1,31 @@
-import React, { createContext, useReducer, useState } from 'react';
+import createDataContext from './createDataContext';
 
-const BlogContext = createContext();
-
-//!Move to separate function
 const blogReducer = (state, { type, payload }) => {
 	switch (type) {
 		case 'ADD_BLOG_POST':
-			return { ...state, ...payload };
-
+			return [
+				...state,
+				{
+					id: Math.floor(Math.random() * 99999),
+					title: `Blog ${state.length + 1}`,
+				},
+			];
+		case 'DELETE_BLOG_POST':
+			return state.filter((item) => item.id !== payload);
 		default:
 			return state;
 	}
 };
 
-export const BlogProvider = ({ children }) => {
-	const [blogPosts, dispatch] = useReducer(blogReducer, []);
-
-	return (
-		<BlogContext.Provider value={{ blogPosts, addBlogPost }}>
-			{children}
-		</BlogContext.Provider>
-	);
+const addBlogPost = (dispatch) => () => {
+	dispatch({ type: 'ADD_BLOG_POST' });
 };
-export default BlogContext;
+const deleteBlogPost = (dispatch) => (id) => {
+	dispatch({ type: 'DELETE_BLOG_POST', payload: id });
+};
+
+export const { Context, Provider } = createDataContext(
+	blogReducer,
+	{ addBlogPost, deleteBlogPost },
+	[]
+);

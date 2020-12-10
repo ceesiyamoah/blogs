@@ -1,8 +1,8 @@
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { Provider } from './src/context/BlogContext';
 import HomeScreen from './src/screens/HomeScreen';
-import { BlogProvider } from './src/context/BlogContext';
 
 const navigation = createStackNavigator(
 	{
@@ -19,7 +19,7 @@ const navigation = createStackNavigator(
 const App = createAppContainer(navigation);
 
 export default () => (
-	<BlogProvider>
+	<Provider>
 		<App />
-	</BlogProvider>
+	</Provider>
 );
