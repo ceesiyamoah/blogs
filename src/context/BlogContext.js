@@ -11,7 +11,7 @@ const blogReducer = (state, { type, payload }) => {
 				},
 			];
 		case 'DELETE_BLOG_POST':
-			return state.filter((item) => item.id !== payload);
+			return state.filter(({ id }) => id !== payload);
 		default:
 			return state;
 	}
