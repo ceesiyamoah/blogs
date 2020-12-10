@@ -8,12 +8,6 @@ const HomeScreen = ({ navigation }) => {
 	const { state, addBlogPost, deleteBlogPost } = useContext(Context);
 	return (
 		<>
-			<View style={{ alignItems: 'center' }}>
-				<Button
-					title='add post'
-					onPress={() => navigation.navigate('Create')}
-				/>
-			</View>
 			<FlatList
 				data={state}
 				keyExtractor={({ id }) => `${id}`}
@@ -50,6 +44,14 @@ const styles = StyleSheet.create({
 	icon: {
 		fontSize: 24,
 	},
+});
+
+HomeScreen.navigationOptions = ({ navigation }) => ({
+	headerRight: () => (
+		<TouchableOpacity onPress={() => navigation.navigate('Create')}>
+			<AntDesign name='plus' color='black' size={24} />
+		</TouchableOpacity>
+	),
 });
 
 export default HomeScreen;
