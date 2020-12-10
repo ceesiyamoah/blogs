@@ -8,7 +8,12 @@ const HomeScreen = ({ navigation }) => {
 	const { state, addBlogPost, deleteBlogPost } = useContext(Context);
 	return (
 		<>
-			<Button title='add post' onPress={addBlogPost} />
+			<View style={{ alignItems: 'center' }}>
+				<Button
+					title='add post'
+					onPress={() => navigation.navigate('Create')}
+				/>
+			</View>
 			<FlatList
 				data={state}
 				keyExtractor={({ id }) => `${id}`}
