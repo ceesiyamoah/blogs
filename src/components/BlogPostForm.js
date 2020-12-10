@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
-const BlogPostForm = ({ initialState, actionOnPost, navigation }) => {
+const BlogPostForm = ({ initialState, onSubmit }) => {
 	const [blogDetails, setBlogDetails] = useState(initialState);
 
 	return (
@@ -25,12 +25,13 @@ const BlogPostForm = ({ initialState, actionOnPost, navigation }) => {
 				}
 			/>
 
-			<Button
-				title='submit'
-				onPress={() => actionOnPost(blogDetails, () => navigation.goBack())}
-			/>
+			<Button title='submit' onPress={() => onSubmit(blogDetails)} />
 		</View>
 	);
+};
+
+BlogPostForm.DefaultProps = {
+	initialState: { title: '', content: '' },
 };
 
 const styles = StyleSheet.create({

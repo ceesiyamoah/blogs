@@ -8,8 +8,7 @@ const CreateScreen = ({ navigation }) => {
 
 	return (
 		<BlogPostForm
-			actionOnPost={editBlogPost}
-			navigation={navigation}
+			onSubmit={(blog) => editBlogPost(blog, () => navigation.goBack())}
 			initialState={blog}
 		/>
 	);

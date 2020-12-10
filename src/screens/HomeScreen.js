@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Context } from '../context/BlogContext';
 import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const HomeScreen = ({ navigation }) => {
-	const { state, addBlogPost, deleteBlogPost } = useContext(Context);
+	const { state, deleteBlogPost } = useContext(Context);
 	return (
 		<>
 			<FlatList

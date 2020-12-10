@@ -15,10 +15,7 @@ const blogReducer = (state, { type, payload }) => {
 			return state.filter(({ id }) => id !== payload);
 
 		case 'EDIT_BLOG_POST':
-			let newBlog = state.find((item) => item.id === payload.id);
-			(newBlog.title = payload.title), (newBlog.content = payload.content);
-
-			return [state.filter((item) => item.id !== payload.id), newBlog];
+			return state.map((item) => (item.id === payload.id ? payload : item));
 		default:
 			return state;
 	}
@@ -26,14 +23,14 @@ const blogReducer = (state, { type, payload }) => {
 
 const addBlogPost = (dispatch) => (blogDetails, callback) => {
 	dispatch({ type: 'ADD_BLOG_POST', payload: blogDetails });
-	callback();
+	callback && callback();
 };
 const deleteBlogPost = (dispatch) => (id) => {
 	dispatch({ type: 'DELETE_BLOG_POST', payload: id });
 };
 const editBlogPost = (dispatch) => (blog, callback) => {
 	dispatch({ type: 'EDIT_BLOG_POST', payload: blog });
-	callback();
+	callback && callback();
 };
 
 export const { Context, Provider } = createDataContext(

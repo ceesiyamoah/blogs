@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Context } from '../context/BlogContext';
 import { MaterialIcons } from '@expo/vector-icons';
 
