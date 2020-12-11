@@ -1,29 +1,41 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Context } from '../context/BlogContext';
 import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const HomeScreen = ({ navigation }) => {
-	const { state, deleteBlogPost } = useContext(Context);
+	const { state, deleteBlogPost, getBlogPosts } = useContext(Context);
+	useEffect(() => {
+		getBlogPosts();
+		const listener = navigation.addListener('didFocus', () => {
+			getBlogPosts();
+		});
+
+		return () => {
+			listener.remove();
+		};
+	}, []);
+
 	return (
 		<>
 			<FlatList
 				data={state}
 				keyExtractor={({ id }) => `${id}`}
 				renderItem={({ item }) => (
-					<TouchableOpacity
-						onPress={() => navigation.navigate('Show', { id: item.id })}
-					>
-						<View style={styles.container}>
+					<View style={styles.container}>
+						<TouchableOpacity
+							onPress={() => navigation.navigate('Show', { id: item.id })}
+						>
 							<Text style={styles.text}>
 								{item.title}- {item.id}
 							</Text>
-							<TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
-								<AntDesign name='delete' style={styles.icon} color='black' />
-							</TouchableOpacity>
-						</View>
-					</TouchableOpacity>
+						</TouchableOpacity>
+
+						<TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+							<AntDesign name='delete' style={styles.icon} color='black' />
+						</TouchableOpacity>
+					</View>
 				)}
 			/>
 		</>

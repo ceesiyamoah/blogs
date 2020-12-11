@@ -29,16 +29,18 @@ const styles = StyleSheet.create({
 	},
 });
 
-ShowScreen.navigationOptions = ({ navigation }) => ({
-	headerRight: () => (
-		<TouchableOpacity
-			onPress={() =>
-				navigation.navigate('Edit', { id: navigation.getParam('id') })
-			}
-		>
-			<MaterialIcons name='edit' size={24} color='black' />
-		</TouchableOpacity>
-	),
-});
+ShowScreen.navigationOptions = ({ navigation }) => {
+	return {
+		headerRight: () => (
+			<TouchableOpacity
+				onPress={() =>
+					navigation.navigate('Edit', { id: navigation.getParam('id') })
+				}
+			>
+				<MaterialIcons name='edit' size={24} color='black' />
+			</TouchableOpacity>
+		),
+	};
+};
 
 export default ShowScreen;
